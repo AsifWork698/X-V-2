@@ -1,0 +1,7 @@
+<svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded square border -->
+  <rect x="2" y="2" width="28" height="28" rx="4" ry="4" fill="none" stroke="#0199FF" stroke-width="4"/>
+  
+  <!-- Minimal mountain shape -->
+  <polygon points="6,22 14,12 22,22" fill="#5A9BFF"/>
+</svg>
