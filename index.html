@@ -1,0 +1,1317 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home/X</title>
+    <link href="./src/output.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=gif_box" />
+    <style>
+        .custom-scroll::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: #0199FF;
+            border-radius: 8px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background-color: #0077cc;
+        }
+
+        /* Added mobile overlay styles for sidebars */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            display: none;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            background-color: black;
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .mobile-sidebar.left {
+            left: 0;
+            width: 280px;
+        }
+
+        .mobile-sidebar.right {
+            right: 0;
+            width: 320px;
+            transform: translateX(100%);
+        }
+
+        .mobile-sidebar.right.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class=" bg-black text-white">
+
+    <!-- Added mobile navigation bar for sidebar access -->
+    <div class="mobile-nav md:hidden fixed top-0 left-0 right-0 bg-black border-b border-gray-700 z-30 px-4 py-3">
+        <div class="flex items-center justify-between">
+            <!-- Hamburger menu button for left sidebar -->
+            <button id="leftSidebarBtn" class="p-2 hover:bg-gray-800 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Logo in center -->
+            <div class="flex-1 flex justify-center">
+                <span class="text-xl font-bold">Asif</span>
+                <img class="w-8 invert" src="./components/logo.svg" alt="X Logo">
+            </div>
+
+            <!-- Search/trending button for right sidebar -->
+            <button id="rightSidebarBtn" class="p-2 hover:bg-gray-800 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Added mobile overlay for closing sidebars -->
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <!-- Added mobile left sidebar -->
+    <div id="leftMobileSidebar" class="mobile-sidebar left md:hidden">
+        <div class="p-4">
+            <!-- Close button -->
+            <!-- Added user name "Asif" next to the X logo in mobile sidebar -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                    <img class="w-8 invert" src="./components/logo.svg" alt="X Logo">
+                    <span class="text-white font-bold text-lg">Asif</span>
+                </div>
+                <button id="closeLefSidebar" class="p-2 hover:bg-gray-800 rounded-full">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation menu -->
+            <ul class="flex flex-col space-y-2 text-lg font-bold">
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/home.svg" alt=""> <span>Home</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/search.svg" alt=""> <span>Explore</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/notification.svg" alt=""> <span>Notifications</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/messages.svg" alt=""> <span>Messages</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/grok.svg" alt=""> <span>Grok</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/bookmarks.svg" alt=""> <span>Bookmarks</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/communities.svg" alt=""> <span>Communities</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/logo.svg" alt=""> <span>Premium</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/verified.svg" alt=""> <span>Verified Orgs</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/profile.svg" alt=""> <span>Profile</span>
+                </li>
+                <li
+                    class="flex items-center space-x-4 rounded-full px-4 py-3 hover:bg-gray-800 cursor-pointer transition">
+                    <img class="w-6 invert" src="./components/more.svg" alt=""> <span>More</span>
+                </li>
+                <li class="mt-4">
+                    <button
+                        class="bg-white text-black font-bold px-8 py-3 text-lg rounded-full hover:bg-gray-400 cursor-pointer w-full">Post</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Added mobile right sidebar -->
+    <div id="rightMobileSidebar" class="mobile-sidebar right md:hidden">
+        <div class="p-4">
+            <!-- Close button -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Explore</h2>
+                <button id="closeRightSidebar" class="p-2 hover:bg-gray-800 rounded-full">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Search -->
+            <div class="search mb-6">
+                <input type="text" class="bg-black border border-gray-700 text-white rounded-full w-full px-4 py-3"
+                    placeholder="Search">
+            </div>
+
+                       <!-- What's Happening -->
+            <div class="whats bg-black border border-gray-700 w-full py-5 rounded-xl mb-6">
+                <h1 class="text-xl font-bold ml-2 p-3">What's Happening</h1>
+                <div class="item my-2 px-4 py-3">
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+                </div>
+            </div> 
+
+
+            <!-- Who to follow -->
+            <div class="follow bg-black border border-gray-700 w-full py-5 rounded-xl">
+                <h1 class="text-xl font-bold ml-2 p-3 text-white">Who to follow</h1>
+                <div class="flex flex-col gap-4 px-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="./components/analogo.jpg" alt="Joe Biden" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 flex flex-col">
+                            <span class="text-white font-semibold">Ana de Armas</span>
+                            <div class="text-gray-400 text-sm">@ana-de-armas</div>
+                        </div>
+                        <button
+                            class="bg-white text-black px-3 py-1 rounded-full hover:bg-gray-400 cursor-pointer">Follow</button>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="./components/michael.jpg" alt="Joe Biden" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 flex flex-col">
+                            <span class="text-white font-semibold">Michael Scofield</span>
+                            <div class="text-gray-400 text-sm">@michael-scofiled</div>
+                        </div>
+                        <button
+                            class="bg-white text-black px-3 py-1 rounded-full hover:bg-gray-400 cursor-pointer">Follow</button>
+                    </div>
+                    <div class="text-blue-600 underline cursor-pointer">Show More</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Made main container responsive with flex-col on mobile, flex-row on larger screens -->
+    <!-- Added top padding on mobile to account for fixed navigation -->
+    <div class="flex flex-col lg:flex-row container mx-auto pt-16 md:pt-0 min-h-screen">
+        <!-- Added responsive classes: hidden on mobile (md:hidden), show on medium+ screens, adjusted width -->
+        <div class="first hidden md:block md:w-[75%] lg:w-[75%] mt-6">
+            <!-- Added user name "Asif" next to the X logo -->
+            <div class="logo relative right-[28px] flex items-center justify-center gap-3 mb-8">
+                <img class="w-10 invert" src="./components/logo.svg" alt="">
+                <span class="text-white font-bold text-xl">Asif</span>
+            </div>
+
+            <div class="sidebar flex justify-end">
+                <!-- Made sidebar text responsive: smaller on medium screens, larger on lg+ -->
+                <ul class="flex flex-col items-start text-lg md:text-xl space-y-4 w-[65%] font-bold">
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/home.svg" alt=""> <span>Home</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/search.svg" alt="">
+                        <span>Explore</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/notification.svg" alt="">
+                        <span>Notifications</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/messages.svg" alt="">
+                        <span>Messages</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/grok.svg" alt=""> <span>Grok</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/bookmarks.svg" alt="">
+                        <span>Bookmarks</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/communities.svg" alt="">
+                        <span>Communities</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/logo.svg" alt="">
+                        <span>Premium</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/verified.svg" alt="">
+                        <span>Verified
+                            Orgs</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/profile.svg" alt="">
+                        <span>Profile</span>
+                    </li>
+                    <li
+                        class="flex  space-x-5 rounded-full px-4 py-2 hover:scale-105 hover:[background-color:oklch(0.27_0_0)] cursor-pointer transition transform duration-200">
+                        <img class=" flex items-center w-7 invert" src="./components/more.svg" alt=""> <span>More</span>
+                    </li>
+                    <li>
+                        <div class="post my-2">
+                            <!-- Made post button responsive with smaller padding on mobile -->
+                            <button
+                                class="bg-white text-black font-bold px-4 md:px-25 py-2 md:py-3 text-lg md:text-xl rounded-full  hover:bg-gray-400 cursor-pointer">Post</button>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- Made main feed responsive: full width on mobile, constrained on larger screens -->
+        <div class="second w-full md:w-full lg:w-full border-[1px] border-gray-700">
+            <!-- Made top navigation responsive with smaller text on mobile -->
+            <div class="top flex p-2 md:p-4 font-bold text-base md:text-lg">
+                <div
+                    class="underline relative w-12 md:w-16 h-1 bg-[rgb(26,126,255)] bottom-0 left-[100px] md:left-[140px] top-[30px] md:top-[39px] rounded-full">
+                </div>
+                <div class="left w-1/2 flex justify-center underline cursor-pointer">For you</div>
+                <div class="right w-1/2 flex justify-center cursor-pointer">Following</div>
+            </div>
+            <div class="h-[1px] w-full bg-gray-700"></div>
+
+
+            <!-- Updated scrollable area to use proper height calculation for mobile -->
+            <div class="min-h-[calc(100vh-12rem)] md:max-h-220 overflow-y-auto overflow-x-hidden custom-scroll">
+                <!-- Made compose area responsive with smaller gaps and padding on mobile -->
+                <div class="foryou flex gap-2 md:gap-4 text-lg md:text-xl p-2 md:p-4">
+                    <div class="img w-12 md:w-16 h-10 md:h-12 rounded-full overflow-hidden">
+                        <img class="w-full h-full object-cover" src="./components/asif.jpeg" alt="">
+                    </div>
+                    <input class="border-none outline-none w-full bg-black text-white mx-2 md:mx-5" type="text"
+                        placeholder="What's happening?">
+                </div>
+                <!-- Made reply section responsive with adjusted margins -->
+                <div class="text-blue-600 flex items-center mx-13 md:mx-25">
+                    <span>
+                        <img class="w-5" src="./components/globe.svg" alt="">
+                    </span>
+                    <span class="font-bold cursor-pointer">Everyone can reply</span>
+                </div>
+                <div class="h-[1px] w-3/4 mt-3 bg-gray-700 mx-13 md:mx-24"></div>
+
+                <div class="lower flex">
+
+                    <!-- Made blue icons responsive with smaller gaps and margins on mobile -->
+                    <div class="blueicons flex gap-2 md:gap-4 mx-13 md:mx-25 my-3">
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/gallery.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/grokblue.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/gif.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/morepoll.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/smile.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5 cursor-pointer" src="./components/calendar.svg" alt="">
+                        </div>
+                        <div>
+                            <img class="w-4 md:w-5" src="./components/gps.svg" alt="">
+                        </div>
+                    </div>
+
+
+                    <div class="post my-2">
+                        <!-- Made post button responsive -->
+                        <button
+                            class="bg-white text-black font-bold px-3 md:px-5 py-1 md:py-2 text-sm md:text-base rounded-full  hover:bg-gray-400 cursor-pointer">Post</button>
+                    </div>
+                </div>
+
+                <div class="h-[1px] w-full mt-1 bg-gray-700"></div>
+
+
+                <!-- Made content area responsive -->
+                <div class="content flex-col gap-2 mt-2 ml-1 md:ml-3">
+
+
+                    <!-- 1 -->
+                    <div class="flex flex-wrap items-center">
+                        <!-- Made profile image responsive -->
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/analogo.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Ana de Armas</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10"><img
+                                src="./components/verified2.svg" alt=""></span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@ana-de-armas</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">55m</span>
+                        <!-- Fixed text content margin to properly clear profile image -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Somewhere between reality and a dream 🌙
+                        </div>
+                        <span
+                            class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">#QuietMoments
+                            #ForeverFeels #SoftDays #AnaDeArmasVibes #MagicInSimplicity</span>
+                        <!-- Centered image container with flex justify-center -->
+                        <div class="cimage w-full flex justify-center">
+                            <!-- Made image responsive with proper sizing -->
+                            <img class="mt-5 w-full max-w-[280px] md:max-w-[440px] h-auto rounded-2xl"
+                                src="./components/anadearmas.jpeg" alt="">
+                        </div>
+                        <!-- Fixed footer spacing and overlap issues on mobile -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- end -->
+
+
+                    <!-- 2 -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/analogo.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Ana de Armas</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10"><img
+                                src="./components/verified2.svg" alt=""></span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@ana-de-armas</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">55m</span>
+                        <!-- Fixed text content margin to properly clear profile image -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            "Caught in this little world of light and motion… sometimes even the smallest gestures feel
+                            endless ✨💫
+                        </div>
+                        <span
+                            class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">#AnaDeArmas
+                            #CinematicVibes #TimelessMoments #MagicInMotion #SoftLight</span>
+                        <!-- Centered video container with flex justify-center -->
+                        <div class="cimage w-full flex justify-center">
+                            <!-- Made video responsive -->
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[500px] h-auto rounded-2xl"
+                                src="./components/a2.mp4"></video>
+                        </div>
+                        <!-- Fixed footer spacing and overlap issues on mobile -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- end -->
+
+                    <!-- 3 -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/analogo.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Ana de armas</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10"><img
+                                src="./components/verified2.svg" alt=""></span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@ana-de-armas</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">55m</span>
+                        <!-- Fixed text content margin to properly clear profile image -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Moments like these remind me how fleeting and beautiful life can be… every glance, every
+                            smile, a story unfolding ✨🎬
+                        </div>
+                        <span
+                            class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">#AnaDeArmas
+                            #LifeInMotion #EtherealVibes #ForeverInFrames </span>
+                        <!-- Centered video container with flex justify-center -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/a3.mp4"></video>
+                        </div>
+                        <!-- Fixed footer spacing and overlap issues on mobile -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- end -->
+
+                    <!-- 4 -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/michael.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Michael Scofield</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10"><img
+                                src="./components/verified2.svg" alt=""></span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@michael-scofiled</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">55m</span>
+                        <!-- Fixed text content margin to properly clear profile image -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Every plan, every risk… the line between freedom and fate is razor thin. This is how legends
+                            are made 🖤🎬
+                        </div>
+                        <span
+                            class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">#MichaelScofield
+                            #PrisonBreak #MastermindMoves #EdgeOfFreedom #LegendaryMoves</span>
+                        <!-- Centered video container with flex justify-center -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/m1.mp4"></video>
+                        </div>
+                        <!-- Fixed footer spacing and overlap issues on mobile -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>429</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- end -->
+
+
+                    <!-- 5-American Post -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/american.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">American Tribute</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10">
+                            <img src="./components/verified2.svg" alt="">
+                        </span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@american-tribute</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">1h</span>
+
+                        <!-- Post text -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Remembering the heroes and honoring the memories of 9/11. Courage never fades, and unity
+                            stands tall. 🕊️🇺🇸
+                        </div>
+
+                        <!-- Hashtags -->
+                        <span class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">
+                            #NeverForget #911Tribute #HeroesRemembered #UnitedWeStand #Patriotism
+                        </span>
+
+                        <!-- Video -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/americanvideo.mp4"></video>
+                        </div>
+
+                        <!-- Footer with random values -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>672</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>534</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>1.2k</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>78</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>312</span>
+                            </div>
+                        </div>
+
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- End American Post -->
+
+                    <!-- 6-Korean Drama Post -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/hansoheelogo.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Korean Drama Fan</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10">
+                            <img src="./components/verified2.svg" alt="">
+                        </span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@korean-drama-fan</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">2h</span>
+
+                        <!-- Post text -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Just finished binge-watching my favorite Korean dramas. Emotions, twists, and unforgettable
+                            moments—this is the magic of storytelling ❤️🎥
+                        </div>
+
+                        <!-- Hashtags -->
+                        <span class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">
+                            #KDramaAddict #BingeWatching #HansoheeVibes #LoveAndDrama #EmotionalRollercoaster
+                        </span>
+
+                        <!-- Video -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/mynamevideo.mp4"></video>
+                        </div>
+
+                        <!-- Footer with random values -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>215</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>142</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>987</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>33</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>124</span>
+                            </div>
+                        </div>
+
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- End Korean Drama Post -->
+
+                    <!-- 7- The Last of Us 2 Post -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/lastofus.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">The Last of Us 2</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10">
+                            <img src="./components/verified2.svg" alt="">
+                        </span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@tlou2-game</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">3h</span>
+
+                        <!-- Post text -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Dive into the post-apocalyptic world once again. Survive, strategize, and experience an
+                            emotional journey like no other. 🔥🎮
+                        </div>
+
+                        <!-- Hashtags -->
+                        <span class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">
+                            #TheLastOfUs2 #GamingLegends #ApocalypseAdventure #EllieAndJoel #SurvivalStory
+                        </span>
+
+                        <!-- Video -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/lastofusvideo.mp4"></video>
+                        </div>
+
+                        <!-- Footer with random values -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>812</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>604</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>2.1k</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>91</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>436</span>
+                            </div>
+                        </div>
+
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- End The Last of Us 2 Post -->
+
+                    <!-- 8- F1 Post -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/f1.jpeg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Formula 1</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10">
+                            <img src="./components/verified2.svg" alt="">
+                        </span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@f1-official</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">30m</span>
+
+                        <!-- Post text -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            High speed, adrenaline, and precision—every race is a battle on wheels. Feel the rush of
+                            Formula 1! 🏎️🔥
+                        </div>
+
+                        <!-- Hashtags -->
+                        <span class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">
+                            #F1Racing #Formula1 #SpeedAndPrecision #GrandPrix #RaceDayVibes
+                        </span>
+
+                        <!-- Video -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/f1video.mp4"></video>
+                        </div>
+
+                        <!-- Footer with random values -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>342</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>215</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>1.5k</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>67</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>291</span>
+                            </div>
+                        </div>
+
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- End F1 Post -->
+
+                    <!-- 9- Fast & Furious Post -->
+                    <div class="flex flex-wrap items-center">
+                        <div class="img w-10 md:w-14 h-10 md:h-14 rounded-full overflow-hidden mt-2">
+                            <img class="w-full h-full object-cover" src="./components/fastfurious.jpg" alt="">
+                        </div>
+                        <span class="mx-2 md:mx-3 font-bold mt-[-18px] text-sm md:text-base">Fast & Furious</span>
+                        <span class="text-sm text-gray-500 text-lg md:text-xl mt-[-18px] w-6 md:w-10">
+                            <img src="./components/verified2.svg" alt="">
+                        </span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">@fastfurious-official</span>
+                        <span class="text-xs md:text-sm text-gray-500 text-lg md:text-xl mt-[-18px]">&middot;</span>
+                        <span class="text-xs md:text-sm text-gray-500 mt-[-18px]">45m</span>
+
+                        <!-- Post text -->
+                        <div class="line-break w-full mt-[-25px] ml-12 md:ml-17 text-sm md:text-base">
+                            Fast cars, epic stunts, and family above all. The adrenaline never stops in the world of
+                            Fast & Furious! 🏎️💨
+                        </div>
+
+                        <!-- Hashtags -->
+                        <span class="w-full ml-12 md:ml-17 text-blue-500 cursor-pointer text-sm md:text-base">
+                            #FastAndFurious #StreetRacing #FamilyForever #EpicStunts #HighOctane
+                        </span>
+
+                        <!-- Video -->
+                        <div class="cimage w-full flex justify-center">
+                            <video controls autoplay muted
+                                class="mt-5 w-full max-w-[300px] md:max-w-[520px] h-auto rounded-2xl"
+                                src="./components/fastfuriousvideo.mp4"></video>
+                        </div>
+
+                        <!-- Footer with random values -->
+                        <div
+                            class="foot flex items-center justify-between w-full px-2 md:px-12 mt-3 text-xs md:text-sm">
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/comment.svg" alt=""
+                                        class="w-full h-full mask mask-content" />
+                                </div>
+                                <span>578</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/retweet.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>462</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/likes.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>1.8k</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/poll.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>85</span>
+                            </div>
+                            <div class="flex items-center gap-1 md:gap-2">
+                                <div
+                                    class="w-4 md:w-6 h-4 md:h-6 bg-black hover:bg-blue-500 transition duration-300 cursor-pointer">
+                                    <img src="./components/bookmarks.svg" alt=""
+                                        class="invert w-full h-full mask mask-content" />
+                                </div>
+                                <span>374</span>
+                            </div>
+                        </div>
+
+                        <div class="h-[1px] w-full mt-3 bg-gray-700"></div>
+                    </div>
+                    <!-- End Fast & Furious Post -->
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Made right sidebar responsive: hidden on mobile, show on large screens -->
+        <div class="third hidden lg:block w-full ml-7">
+
+
+            <div class="search m-3">
+                <input type="text"
+                    class="bg-black border-[1px]  border-gray-700 text-white rounded-full w-3/4 px-4 py-2"
+                    placeholder="Search">
+            </div>
+
+            <div class="whats m-3 bg-black border-[1px]  border-gray-700 w-3/4 py-5 rounded-xl">
+                <h1 class="text-xl font-bold ml-2 p-3">What's Happening</h1>
+                <div class="item my-2 px-4 py-3">
+
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center space-x-50">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center space-x-50">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+
+
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center space-x-50">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+
+
+                    <div
+                        class="mt-4 hover:bg-gray-950 hover:border-white hover:rounded-lg transition-all duration-300 cursor-pointer flex flex-col p-2">
+                        <div class="flex items-center space-x-50">
+                            <span class="font-bold text-sm text-gray-700">Trending in India</span>
+                            <img class="w-5 invert" src="./components/more.svg" alt="More">
+                        </div>
+                        <div class="font-bold mt-1">#Orry</div>
+                        <div class="text-gray-500 text-sm">40.2k Posts</div>
+                    </div>
+
+                </div>
+
+            </div> 
+
+            <div class="follow m-3 bg-black border border-gray-700 w-3/4 py-5 rounded-xl">
+                <h1 class="text-xl font-bold ml-2 p-3 text-white">Who to follow</h1>
+                <div class="flex flex-col gap-4 px-3">
+
+                    <div class="flex items-center gap-3">
+                        <!-- Profile Image Circle -->
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="./components/analogo.jpg" alt="Joe Biden" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex-1 flex flex-col">
+                            <span class="text-white font-semibold">Ana de Armas</span>
+                            <div class="text-gray-400 text-sm">@ana-de-armas</div>
+                        </div>
+
+                        <!-- Follow Button -->
+                        <button class="bg-white text-black px-3 py-1 rounded-full hover:bg-gray-400 cursor-pointer">
+                            Follow
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <!-- Profile Image Circle -->
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="./components/michael.jpg" alt="Joe Biden" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex-1 flex flex-col">
+                            <span class="text-white font-semibold">Michael Scofield</span>
+                            <div class="text-gray-400 text-sm">@michael-scofiled</div>
+                        </div>
+
+                        <!-- Follow Button -->
+                        <button class="bg-white text-black px-3 py-1 rounded-full hover:bg-gray-400 cursor-pointer">
+                            Follow
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <!-- Profile Image Circle -->
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="./components/hansoheelogo.jpg" alt="Joe Biden" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex-1 flex flex-col">
+                            <span class="text-white font-semibold">Korean Drama Fan</span>
+                            <div class="text-gray-400 text-sm">@korean-drama-fan</div>
+                        </div>
+
+                        <!-- Follow Button -->
+                        <button class="bg-white text-black px-3 py-1 rounded-full hover:bg-gray-400 cursor-pointer">
+                            Follow
+                        </button>
+
+                    </div>
+                    <div class="text-blue-600 underline cursor-pointer">Show More</div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Added JavaScript for mobile sidebar functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const leftSidebarBtn = document.getElementById('leftSidebarBtn');
+            const rightSidebarBtn = document.getElementById('rightSidebarBtn');
+            const leftMobileSidebar = document.getElementById('leftMobileSidebar');
+            const rightMobileSidebar = document.getElementById('rightMobileSidebar');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const closeLefSidebar = document.getElementById('closeLefSidebar');
+            const closeRightSidebar = document.getElementById('closeRightSidebar');
+
+            // Open left sidebar
+            leftSidebarBtn.addEventListener('click', function () {
+                leftMobileSidebar.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Open right sidebar
+            rightSidebarBtn.addEventListener('click', function () {
+                rightMobileSidebar.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Close left sidebar
+            closeLefSidebar.addEventListener('click', function () {
+                leftMobileSidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close right sidebar
+            closeRightSidebar.addEventListener('click', function () {
+                rightMobileSidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close sidebars when clicking overlay
+            mobileOverlay.addEventListener('click', function () {
+                leftMobileSidebar.classList.remove('active');
+                rightMobileSidebar.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close sidebars on window resize if screen becomes larger
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 768) {
+                    leftMobileSidebar.classList.remove('active');
+                    rightMobileSidebar.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
